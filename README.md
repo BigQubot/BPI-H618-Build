@@ -15,7 +15,7 @@ Soc | Boards |
 * clone code
 
 ```
-git pull https://github.com/BigQubot/BPI-H618-Build
+git clone https://github.com/BigQubot/BPI-H618-Build
 ```
 
 * Run build.sh
