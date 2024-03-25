@@ -1,0 +1,20 @@
+# Banana Pi ZRAM configuration service
+# Create 1 + number of cores compressed block devices
+# This service may block the boot process for up to 30 sec
+
+[Unit]
+Description=Banana Pi ZRAM config
+DefaultDependencies=no
+After=local-fs.target
+Before=bananapi-ramlog.target
+Conflicts=shutdown.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/bananapi/bananapi-zram-config start
+ExecStop=/usr/lib/bananapi/bananapi-zram-config stop
+RemainAfterExit=yes
+TimeoutStartSec=30sec
+
+[Install]
+WantedBy=sysinit.target

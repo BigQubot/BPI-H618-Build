@@ -1,0 +1,2 @@
+@reboot root /usr/lib/bananapi/bananapi-apt-updates
+@daily root /usr/lib/bananapi/bananapi-apt-updates

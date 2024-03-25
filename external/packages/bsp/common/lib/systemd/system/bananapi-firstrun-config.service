@@ -1,0 +1,18 @@
+# Banana Pi firstrun configuration service
+# This service will run in parallel with other services
+
+[Unit]
+Description=Banana Pi first run optional user configuration
+Wants=network-online.target
+After=network.target network-online.target
+ConditionPathExists=/boot/bananapi_first_run.txt
+ConditionPathExists=/root/.not_logged_in_yet
+
+[Service]
+Type=idle
+RemainAfterExit=yes
+ExecStart=/usr/lib/bananapi/bananapi-firstrun-config
+TimeoutStartSec=2min
+
+[Install]
+WantedBy=multi-user.target

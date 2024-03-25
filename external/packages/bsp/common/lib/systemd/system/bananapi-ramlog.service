@@ -1,0 +1,23 @@
+# Banana Pi ramlog service
+# Stores logs in (compressed) memory
+# This service may block the boot process for up to 30 sec
+
+[Unit]
+Description=Banana Pi memory supported logging
+DefaultDependencies=no
+Before=rsyslog.service sysinit.target syslog.target
+After=bananapi-zram-config.service
+Conflicts=shutdown.target
+RequiresMountsFor=/var/log /var/log.hdd
+IgnoreOnIsolate=yes
+
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/bananapi/bananapi-ramlog start
+ExecStop=/usr/lib/bananapi/bananapi-ramlog stop
+ExecReload=/usr/lib/bananapi/bananapi-ramlog write
+RemainAfterExit=yes
+TimeoutStartSec=30sec
+
+[Install]
+WantedBy=sysinit.target

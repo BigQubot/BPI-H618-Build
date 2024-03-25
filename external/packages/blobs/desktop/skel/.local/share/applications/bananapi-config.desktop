@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=BananaPi config
+Comment=Basic system settings
+Exec=sudo bananapi-config
+Icon=/usr/share/icons/bananapi/bpi_config128x128.png
+Path=/usr/share/icons/bananapi/
+Terminal=true
+StartupNotify=false
+Categories=GTK;GNOME;Settings;HardwareSettings;

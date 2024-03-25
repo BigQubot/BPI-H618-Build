@@ -1,0 +1,45 @@
+#!/bin/bash
+
+source /etc/bananapi-release
+
+prepare_board() {
+
+	case ${BOARD} in
+
+		bpi-m4berry|bpi-m4zero)
+			kv=$(uname -r)
+
+			if [[ $BOARD == bpi-m4zero ]]; then
+
+				if [[ ${DISTRIBUTION_CODENAME} == "bookworm" ]]; then
+					interface_100m="end0"
+				else
+					interface_100m="eth0"
+				fi
+
+				echo netdev > /sys/class/leds/100m_act/trigger
+				echo "${interface_100m}" > /sys/class/leds/100m_act/device_name
+				echo 1 > /sys/class/leds/100m_act/tx
+				echo 1 > /sys/class/leds/100m_act/rx
+
+				echo netdev > /sys/class/leds/100m_link/trigger
+				echo ${interface_100m} > /sys/class/leds/100m_link/device_name
+				echo 1 > /sys/class/leds/100m_link/link
+			fi
+
+		        if [[ ${kv} == 4.9* ]]; then
+		        	aplay /usr/share/sounds/alsa/audio.wav -D hw:2,0 > /dev/null 2>&1
+		        fi
+
+		        rfkill unblock all
+		        /usr/bin/hciattach_bpi -n -s 1500000 /dev/ttyBT0 sprd &
+		        ;;
+	esac
+}
+
+case $1 in
+	*start*)
+		# hardware preparation
+		prepare_board &
+		;;
+esac

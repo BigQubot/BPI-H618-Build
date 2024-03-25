@@ -1,0 +1,18 @@
+# Banana Pi resize filesystem service
+# Resizes partition and filesystem on first/second boot
+# This service may block the boot process for up to 3 minutes
+
+[Unit]
+Description=Banana Pi filesystem resize
+Before=basic.target
+After=sysinit.target local-fs.target
+DefaultDependencies=no
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/lib/bananapi/bananapi-resize-filesystem start
+TimeoutStartSec=6min
+
+[Install]
+WantedBy=basic.target
