@@ -646,7 +646,7 @@ This runs *after* user_config. Don't change anything not coming from other varia
 EXTENSION_PREPARE_CONFIG
 
 # apt-cacher-ng mirror configurarion
-if [[ $DISTRIBUTION == Ubuntu ]]; then
+if [[ $DISTRIBUTION == Ubuntu22.04 ]]; then
 	APT_MIRROR=$UBUNTU_MIRROR
 else
 	APT_MIRROR=$DEBIAN_MIRROR
